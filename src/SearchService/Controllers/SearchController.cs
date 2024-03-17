@@ -20,7 +20,8 @@ namespace SearchService
 
             query = searchParams.OrderBy switch
             {
-                "make" => query.Sort(q => q.Ascending(x => x.Make)),
+                "make" => query.Sort(q => q.Ascending(x => x.Make))
+                .Sort(q => q.Ascending(z => z.Model)),
                 "new" => query.Sort(q => q.Descending(x => x.CreatedAt)),
                 _ => query.Sort(q => q.Ascending(x => x.AuctionEnd))
             };
