@@ -13,17 +13,18 @@ COPY src/NotificationService/NotificationService.csproj src/NotificationService/
 COPY src/Contracts/Contracts.csproj src/Contracts/Contracts.csproj
 COPY src/IdentityService/IdentityService.csproj src/IdentityService/IdentityService.csproj
 
+
 # restore packages
 RUN dotnet restore LiveBid.sln
 
 # Copy the app folders over
-COPY src/SearchService src/SearchService
+COPY src/AuctionService src/AuctionService
 COPY src/Contracts src/Contracts
-WORKDIR /app/src/SearchService
+WORKDIR /app/src/AuctionService
 RUN dotnet publish -c Release -o /app/src/out
 
-#Build runtime image
+# Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build /app/src/out .
-ENTRYPOINT ["dotnet", "SearchService.dll"]
+ENTRYPOINT [ "dotnet", "AuctionService.dll" ]
