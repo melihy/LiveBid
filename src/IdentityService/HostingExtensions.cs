@@ -32,13 +32,10 @@ internal static class HostingExtensions
                 {
                     options.IssuerUri = "identity-svc";
                 }
-
-                // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
-                // options.EmitStaticAudienceClaim = true;
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients)
+            .AddInMemoryClients(Config.Clients(builder.Configuration))
             .AddAspNetIdentity<ApplicationUser>()
             .AddProfileService<CustomProfileService>();
 
