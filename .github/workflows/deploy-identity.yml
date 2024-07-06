@@ -1,0 +1,27 @@
+name: deploy-identity
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'src/IdentityService/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: docker/setup-buildx-action@v2
+    - name: Login to docker hub
+      uses: doker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{s ecrets.DOCKERHUB_PASSWORD }}
+    - name: Build the Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: src/IdentityService/Dockerfile
+        push: true
+        tags: meltor/identity-svc:latest

@@ -22,12 +22,18 @@ builder.Services.AddMassTransit(x =>
 
     x.UsingRabbitMq((context, cfg) =>
     {
-         cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host =>
+        cfg.UseRetry(r =>
         {
-            host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
-            host.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
+            r.Handle<RabbitMqConnectionException>();
+            r.Interval(5, TimeSpan.FromSeconds(10));
         });
-        
+
+        cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host =>
+       {
+           host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
+           host.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
+       });
+
         cfg.ReceiveEndpoint("search-auction-created", e =>
         {
             e.UseMessageRetry(r => r.Interval(5, 5));
@@ -61,14 +67,9 @@ app.MapControllers();
 
 app.Lifetime.ApplicationStarted.Register(async () =>
 {
-    try
-    {
-        await DbInitializer.InitDb(app);
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex);
-    }
+    await Policy.Handle<TimeoutException>()
+    .WaitAndRetryAsync(5, retryAttemt => TimeSpan.FromSeconds(10))
+    .ExecuteAndCaptureAsync(async () => await DbInitializer.InitDb(app));
 });
 
 app.Run();
