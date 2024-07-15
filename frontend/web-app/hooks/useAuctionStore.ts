@@ -1,5 +1,7 @@
 import { Auction, PagedResult } from "@/types"
-import { create } from "zustand"
+// import { create } from "zustand"
+import { createWithEqualityFn, useStoreWithEqualityFn } from 'zustand/traditional';
+
 
 type State = {
     auctions: Auction[]
@@ -18,7 +20,7 @@ const initialState: State = {
     totalCount: 0
 }
 
-export const useAuctionStore = create<State & Actions>((set) => ({
+export const useAuctionStore = createWithEqualityFn<State & Actions>((set) => ({
     ...initialState,
 
     setData: (data: PagedResult<Auction>) => {

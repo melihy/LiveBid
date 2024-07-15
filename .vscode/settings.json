@@ -1,1 +1,17 @@
-{}
+{
+    "editor.fontSize": 17,
+    "terminal.integrated.fontSize": 17,
+    "files.autoSave": "afterDelay",
+    "explorer.compactFolders": false,
+    "editor.guides.bracketPairs": true,
+    "editor.autoClosingBrackets": "always",
+    "editor.autoClosingQuotes": "always",
+    "git.confirmSync": false,
+    "workbench.startupEditor": "none",
+    "workbench.iconTheme": "material-icon-theme",
+    "css.lint.unknownAtRules": "ignore",
+    "vs-kubernetes": {
+        "vs-kubernetes.minikube-show-information-expiration": "2025-01-13T07:11:28.636Z",
+        "disable-linters": ["resource-limits"]
+    },
+}
