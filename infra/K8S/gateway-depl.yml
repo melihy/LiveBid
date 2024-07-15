@@ -18,6 +18,8 @@ spec:
         env:
           - name: ClientApp
             value: https://app.livebid.com
+          - name: IdentityServiceUrl
+            value: https://id.melojournal.com
 ---
 apiVersion: v1
 kind: Service

@@ -32,3 +32,6 @@ docker:
     **      Create and start containers. Builds, (re)creates, starts, and attaches to containers for a service.
     **      -d, --detach	Detached mode: Run containers in the background
     
+kubernetes:
+    *   kubectl apply -f webapp-depl.yml
+    **  kubectl rollout restart deployment webapp
