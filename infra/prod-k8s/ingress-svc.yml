@@ -6,13 +6,8 @@ metadata:
     name: ingress-svc
 spec:
   ingressClassName: nginx
-  tls:
-    - hosts:
-      - app.livebid.com
-      - api.livebid.com
-      secretName: livebid-app-tls
   rules:
-  - host: app.livebid.com
+  - host: app.livebidzz.store
     http:
       paths:
       - pathType: Prefix
@@ -22,7 +17,7 @@ spec:
             name: webapp-clusterip
             port: 
               number: 3000
-  - host: api.livebid.com
+  - host: app.livebidzz.store
     http:
       paths:
       - pathType: Prefix
