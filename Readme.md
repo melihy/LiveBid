@@ -31,7 +31,23 @@ docker:
     *   docker compose up -d 
     **      Create and start containers. Builds, (re)creates, starts, and attaches to containers for a service.
     **      -d, --detach	Detached mode: Run containers in the background
-    
+
+mkcert:
+    *   mkcert -key-file server.key -cert-file server.crt app.livebid.com api.livebid.com
+
 kubernetes:
     *   kubectl apply -f webapp-depl.yml
     **  kubectl rollout restart deployment webapp
+    **  if exists:
+        kubectl delete secret livebid-app-tls
+        create:
+    *** kubectl create secret tls livebid-app-tls --key server.key --cert server.crt 
+    *** delete all kubernete containers:
+        kubectl delete -f K8S/
+    ***
+        kubectl create secret generic postgres-password --from-literal=postgrespwkey=somerandompw
+        kubectl run -it --rm --image=postgres --restart=Never pg-client --env="PGPASSWORD=somerandompw" -- psql -h postgres-clusterip -U postgres
+        kubectl port-forward svc/postgres-clusterip 5432:5432
+        kubectl get secrets
+
+

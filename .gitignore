@@ -481,3 +481,5 @@ $RECYCLE.BIN/
 # Ignore SSL certificates
 infra/devcerts/*.crt
 infra/devcerts/*.key
+infra/prod-k8s/ingress-svc.yml
+infra/prod-k8s/prod-secrets.yml

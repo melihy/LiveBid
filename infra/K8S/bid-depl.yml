@@ -14,20 +14,29 @@ spec:
       containers:
       - name: bid-svc
         image: meltor/bid-svc
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         env:
           - name: RabbitMq__Host
             value: rabbit-clusterip
           - name: RabbitMq__Username
-            value: rabbit
+            valueFrom: 
+              secretKeyRef:
+                name: bid-secret
+                key: rabbitUn
           - name: RabbitMq__Password
-            value: rabbit
+            valueFrom: 
+              secretKeyRef:
+                name: bid-secret
+                key: rabbitPw
           - name: ConnectionStrings__BidDbConnection
-            value: mongodb://root:mongopw@mongo-clusterip
+            valueFrom: 
+              secretKeyRef:
+                name: bid-secret
+                key: connString
           - name: IdentityServiceUrl
             value: https://id.melojournal.com
           - name: GrpcAuction
-            value: http://auction-clusterip:7777
+            value: http://auction-clusterip:7777      
 ---
 apiVersion: v1
 kind: Service
