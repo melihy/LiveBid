@@ -21,8 +21,13 @@ spec:
               secretKeyRef:
                 name: webapp-secret
                 key: authSecret
+          - name: CLIENT_SECRET
+            valueFrom: 
+              secretKeyRef:
+                name: webapp-secret
+                key: authSecret          
           - name: NEXTAUTH_URL
-            value: https://app.livebid.com
+            value: https://app.livebidzz.store
           - name: API_URL
             value: http://gateway-clusterip/
           - name: ID_URL
