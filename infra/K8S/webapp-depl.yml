@@ -25,7 +25,7 @@ spec:
             valueFrom: 
               secretKeyRef:
                 name: webapp-secret
-                key: authSecret          
+                key: clientSecret          
           - name: NEXTAUTH_URL
             value: https://app.livebidzz.store
           - name: API_URL
