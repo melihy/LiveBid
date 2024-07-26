@@ -2,10 +2,17 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-svc
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
   labels:
     name: ingress-svc
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.livebidzz.store
+    - app.livebidzz.store
+    secretName: livebid-tls
   rules:
   - host: app.livebidzz.store
     http:
