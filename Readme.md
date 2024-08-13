@@ -83,4 +83,4 @@ This project is based on the course "Build a Microservices App with .NET and Nex
 Contact Information
 Feel free to reach out for any questions or collaboration opportunities:
 
-[Melih Ayhan, github link here](https://github.com/melihy/LiveBid)
+[Melih Ayhan](https://github.com/melihy)
